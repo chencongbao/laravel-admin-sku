@@ -122,7 +122,8 @@
                         _this.currentSkuId = sku[0].id;
                         let attributeHtml = _this.getAttributeHtml(scopeAttrType, sku[0]);
                         let html = _this.getHtml(attributeHtml);
-                        _this.wrap.find('.sku_attr_key_val tbody').append(html);
+                        //_this.wrap.find('.sku_attr_key_val tbody').append(html);
+                        _this.wrap.find('.sku_attr_key_val tbody').append(_this.getHtml());
                         let tr = tbody.find('tr').eq(index);
                         break;
                     default:
