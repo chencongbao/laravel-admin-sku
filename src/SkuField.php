@@ -12,11 +12,11 @@ class SkuField extends Field
 
     public function render()
     {
-        Admin::js('vendor/dcat-admin-extensions/abbotton/dcat-sku-plus/js/index.js');
-        Admin::css('vendor/dcat-admin-extensions/abbotton/dcat-sku-plus/css/index.css');
+        Admin::js('vendor/dcat-admin-extensions/chencongbao/dcat-admin-sku/js/index.js');
+        Admin::css('vendor/dcat-admin-extensions/chencongbao/dcat-admin-sku/css/index.css');
 
-        $uploadUrl = DcatSkuPlusServiceProvider::setting('sku_plus_img_upload_url') ?: '/admin/sku-image-upload';
-        $deleteUrl = DcatSkuPlusServiceProvider::setting('sku_plus_img_remove_url') ?: '/admin/sku-image-remove';
+        $uploadUrl = DcatSkuPlusServiceProvider::setting('sku_plus_img_upload_url') ?: '/'.config('admin.route.prefix').'/sku-image-upload';
+        $deleteUrl = DcatSkuPlusServiceProvider::setting('sku_plus_img_remove_url') ?: '/'.config('admin.route.prefix').'/sku-image-remove';
         $skuAttributes = SkuAttribute::orderBy('sort', 'desc')->get();
 
         $this->script = <<< EOF
