@@ -55,9 +55,9 @@ class SkuAttributeController extends AdminController
             $grid->disableViewButton();
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
-                $filter->like('attr_name', '属性名称');
-                $filter->equal('attr_type', '属性类型')->select($this->attrType);
+                $filter->equal('id')->width(3);
+                $filter->like('attr_name', '属性名称')->width(3);
+                $filter->equal('attr_type', '属性类型')->select($this->attrType)->width(3);
             });
         });
     }
