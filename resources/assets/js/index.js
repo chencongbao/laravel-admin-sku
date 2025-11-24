@@ -122,11 +122,13 @@
                         _this.currentSkuId = sku[0].id;
                         let attributeHtml = _this.getAttributeHtml(scopeAttrType, sku[0]);
                         let html = _this.getHtml(attributeHtml);
-                        //_this.wrap.find('.sku_attr_key_val tbody').append(html);
-                        _this.wrap.find('.sku_attr_key_val tbody').append(_this.getHtml());
-                        let tr = tbody.find('tr').eq(index);
+                        _this.wrap.find('.sku_attr_key_val tbody').append(html);
                         break;
                     default:
+                        if (!tr || tr.length === 0) {
+                            _this.wrap.find('.sku_attr_key_val tbody').append(_this.getHtml());
+                            tr = tbody.find('tr').eq(index);
+                        }
                         tr.find('td:eq(0) input').val(attr_key);
                         // 规格值
                         let attr_val_td = tr.find('td:eq(1)');
