@@ -2,7 +2,13 @@
     function SKU(wrap) {
         this.wrap = $(wrap);
         this.attrs = {};
-        this.skuAttributes = JSON.parse($('.sku_attributes').val());
+        let skuAttrVal = this.wrap.find('.sku_attributes').val() || '[]';
+        try {
+            this.skuAttributes = JSON.parse(skuAttrVal);
+        } catch (e) {
+            console.error('sku_attributes JSON 错误:', skuAttrVal, e);
+            this.skuAttributes = [];
+        }
         this.uploadUrl = $('.upload_url').val();
         this.deleteUrl = $('.delete_url').val();
         this.attrIndex = 0;
@@ -96,6 +102,27 @@
 
         let old_val = _this.wrap.find('.Js_sku_input').val();
         let params = _this.wrap.find('.Js_sku_params_input').val();
+        if (!old_val && _this.skuAttributes.length > 0) {
+            let tbody = _this.wrap.find('.sku_attr_key_val tbody');
+            let firstTr = tbody.find('tr').eq(0);
+
+            _this.skuAttributes.forEach(function (_, i) {
+                let tr;
+
+                if (i === 0) {
+                    // 第一个规格用现有这行
+                    tr = firstTr;
+                } else {
+                    // 后面的规格追加新行
+                    tbody.append(_this.getHtml());
+                    tr = tbody.find('tr').eq(i);
+                }
+
+                let rowSelect = tr.find('.attribute_selector');
+                rowSelect.find('option[data-idx="' + i + '"]').prop('selected', true);
+                rowSelect.trigger('change');
+            });
+        }
         if (old_val) {
             // 根据值生成DOM
             old_val = JSON.parse(old_val);
